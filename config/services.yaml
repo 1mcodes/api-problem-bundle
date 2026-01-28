@@ -1,0 +1,23 @@
+services:
+    Phpro\ApiProblemBundle\EventListener\JsonApiProblemExceptionListener:
+        arguments:
+            $exceptionTransformer: '@Phpro\ApiProblemBundle\Transformer\Chain'
+            $debug: '%kernel.debug%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -5 }
+
+    Phpro\ApiProblemBundle\Transformer\Chain:
+        arguments:
+            - !tagged_iterator phpro.api_problem.exception_transformer
+
+    Phpro\ApiProblemBundle\Transformer\ApiProblemExceptionTransformer:
+        tags:
+            - { name: phpro.api_problem.exception_transformer }
+
+    Phpro\ApiProblemBundle\Transformer\HttpExceptionTransformer:
+        tags:
+            - { name: phpro.api_problem.exception_transformer }
+
+    Phpro\ApiProblemBundle\Transformer\SecurityExceptionTransformer:
+        tags:
+            - { name: phpro.api_problem.exception_transformer }
