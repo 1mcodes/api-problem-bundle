@@ -11,7 +11,5 @@ grumphp:
           priority: -1
       composer:
         no_check_lock: true
-      xmllint:
-        load_from_net: true
-        scheme_validation: true
-        triggered_by: ['xml']
+      yamllint:
+        parse_custom_tags: true
